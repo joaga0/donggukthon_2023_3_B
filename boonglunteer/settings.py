@@ -11,19 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import os
-import json
-import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ROOT_DIR = os.path.dirname(BASE_DIR)
-SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
-
-secrets = json.loads(open(SECRET_BASE_FILE).read())
-for key, value in secrets.items():
-    setattr(sys.modules[__name__], key, value)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -46,70 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
-    # 추가한 패키지
     'rest_framework',
-    'rest_framework.authtoken',
-    'rest_framework_simplejwt',
-
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.kakao',
-
-    # my app
+    'fishbread',
     'accounts',
-    'badge',
     'charity',
-    'fishbread'
+    'badge'
 ]
-
-SITE_ID = 1
-
-AUTH_USER_MODEL = 'accounts.User'
-
-REST_USE_JWT = True
-
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None # username 필드 사용 x
-ACCOUNT_EMAIL_REQUIRED = True            # email 필드 사용 o
-ACCOUNT_USERNAME_REQUIRED = False        # username 필드 사용 x
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-    'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-    ),
-}
-
-# REST_AUTH_REGISTER_SERIALIZERS = {
-#     "REGISTER_SERIALIZER": "accounts.serializers.CustomUserRegisterSerializer"
-# }  # 유저 회원가입
-
-REST_AUTH = {
-    'USE_JWT' : True,
-    'JWT_AUTH_COOKIE' : 'access',
-    'JWT_AUTH_HTTPONLY': True,
-    'JWT_AUTH_REFRESH_COOKIE' : "refresh_token",
-    'JWT_AUTH_SAMESITE': 'Lax',
-    'JWT_AUTH_COOKIE_USE_CSRF' : False,
-    'SESSION_LOGIN' : False
-}
-
-from datetime import timedelta
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': False,
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
