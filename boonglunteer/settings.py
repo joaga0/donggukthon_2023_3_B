@@ -25,10 +25,11 @@ SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
 secrets = json.loads(open(SECRET_BASE_FILE).read())
 for key, value in secrets.items():
     setattr(sys.modules[__name__], key, value)
-
+    
 AUTH_USER_MODEL = 'accounts.User'
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-SECRET_KEY = 'django-insecure-bcxbno$78(jokl_b*1h&b-@9jg+qt(rh)ee&m0-on$&kg7j3cw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,8 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
-    # 추가한 패키지
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
@@ -59,10 +58,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     # my app
+    'fishbread',
     'accounts',
-    'badge',
     'charity',
-    'fishbread'
+    'badge'
 ]
 
 REST_FRAMEWORK = {

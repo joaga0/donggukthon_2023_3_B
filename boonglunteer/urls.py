@@ -23,4 +23,8 @@ urlpatterns = [
     path('accounts/', include('dj_rest_auth.urls')),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
+    
+    path('fishbread/', include('fishbread.urls')),
+    path('foundation/', include('charity.urls')),
+    path('badge/', include('badge.urls'))
 ]

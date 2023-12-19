@@ -12,11 +12,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Badge',
+            name='Foundation',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=30)),
-                ('image', models.ImageField(upload_to='')),
+                ('foundation_id', models.IntegerField(primary_key=True, serialize=False)),
+                ('name', models.CharField(max_length=20)),
+                ('content', models.TextField()),
+                ('count', models.IntegerField()),
             ],
         ),
     ]
