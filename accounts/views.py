@@ -18,7 +18,7 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.models import SocialAccount
 
 from .models import User
-from .serializers import UserBankSerializer, UserSeriazlier, UserDateSerializer
+from .serializers import UserBankSerializer, UserSeriazlier, UserDateSerializer, UserFishbreadSerializer
 
 state = getattr(settings, 'STATE')
 
@@ -155,9 +155,9 @@ class GoogleAccessView(APIView):
 
 class GoogleLogin(SocialLoginView):
     adapter_class = google_view.GoogleOAuth2Adapter
-    # callback_url = GOOGLE_CALLBACK_URI
+    callback_url = GOOGLE_CALLBACK_URI
     permission_classes = [AllowAny]
-    # client_class = OAuth2Client
+    client_class = OAuth2Client
 
 
 ############################
@@ -183,6 +183,14 @@ class UserDateViewSet(generics.UpdateAPIView):
     serializer_class = UserDateSerializer
     
     def get_object(self):
+        return get_object_or_404(User, id=self.request.user.id)
+
+
+class UserFishbreadViewSet(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserFishbreadSerializer
+
+    def get_qureryset(self):
         return get_object_or_404(User, id=self.request.user.id)
     
 
