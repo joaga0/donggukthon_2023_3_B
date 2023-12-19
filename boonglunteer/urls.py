@@ -24,7 +24,8 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
     
-    path('api/v1/fishbread/', include('fishbread.urls')),
-    path('api/v1/charity/', include('charity.urls')),
-    path('api/v1/badge/', include('badge.urls'))
+    path('api/v1/', include('fishbread.urls')),
+    path('api/v1/', include('charity.urls')),
+    path('badge/', include('badge.urls'))
+
 ]
