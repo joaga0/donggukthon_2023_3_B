@@ -6,5 +6,5 @@ from accounts import views
 app_name = 'fishbread'
 urlpatterns = [
     # path('', views.fishbread_info),
-    path('<int:id>', views.fishbread_detail),
+    # path('<int:id>', views.fishbread_detail),
 ]

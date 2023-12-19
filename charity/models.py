@@ -1,5 +1,5 @@
 from django.db import models
-from fishbread.models import Fishbread
+# from fishbread.models import Fishbread
 
 # Create your models here.
 class Foundation(models.Model):

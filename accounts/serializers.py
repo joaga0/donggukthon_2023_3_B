@@ -1,7 +1,21 @@
 from rest_framework import serializers
-from .models import *
+from .models import User
 
-class UserSerializer(serializers.ModelSerializer):
+class UserBankSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
-        fields = '__all__'
+        fields=['holder','bankname','account_num']
+
+class UserDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['date']
+
+class UserSeriazlier(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields= ['email', 'name','holder','bankname','account_num', 'date']
+

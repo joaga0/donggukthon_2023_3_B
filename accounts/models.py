@@ -1,18 +1,54 @@
 from django.db import models
-# from fishbread.models import Fishbread
+from badge.models import Badge
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
-# Create your models here.
-class User(models.Model):
-    user_id = models.IntegerField()
-    name = models.CharField(max_length=20)
-    account = models.IntegerField()
-    day = models.IntegerField(default=0)    #몇일차인지
-    sum = models.IntegerField(default=0)    #현재총모인금액
-    # fishbread = models.ForeignKey(Fishbread, blank=False, null=False, on_delete=models.CASCADE)  #랜덤 붕어빵
-    # donation = models.IntegerField(default=0)
+class UserManager(BaseUserManager):
+    """
+    Custom user model manager where email is the unique identifiers
+    for authentication instead of usernames.
+    """
 
-    # class Random_Fish(models.IntegerChoices):
-    #     fish1 = 1
-    #     fish2 = 2
-    # fishbread = []
-    # fishbread = models.IntegerField(choices=Random_Fish.choices)
+    def create_user(self, email, password, **extra_fields):
+        """
+        Create and save a User with the given email and password.
+        """
+        if not email:
+            raise ValueError(_('The Email must be set'))
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, email, password, **extra_fields):
+        """
+        Create and save a SuperUser with the given email and password.
+        """
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError(_('Superuser must have is_staff=True.'))
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError(_('Superuser must have is_superuser=True.'))
+        return self.create_user(email, password, **extra_fields)
+    
+class User(AbstractUser):
+    username = None
+    email = models.EmailField(unique=True, max_length=255)
+    name = models.CharField(max_length=100)
+    holder = models.CharField(max_length=20)
+    bankname = models.CharField(max_length=20)
+    account_num = models.CharField(max_length=100)
+    date = models.CharField(max_length=50)
+    badge = models.ManyToManyField(Badge, blank=True)
+    
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = UserManager()
+
+    def __str__(self):
+        return self.email
