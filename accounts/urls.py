@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .views import UserBankViewSet, UserViewSet, UserDateViewSet
+from .views import UserBankViewSet, UserViewSet, UserDateViewSet, UserFishbreadViewSet
 
 app_name = 'accounts'
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('bank', UserBankViewSet.as_view(), name='bank'),
     path('mypage', UserViewSet.as_view(), name='mypage'),
     path('date', UserDateViewSet.as_view(), name='date'),
+    path('fishbread', UserFishbreadViewSet.as_view(), name='fishbread')
 ]

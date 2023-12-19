@@ -1,5 +1,6 @@
 from django.db import models
 from badge.models import Badge
+from fishbread.models import Fishbread
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 class UserManager(BaseUserManager):
@@ -43,6 +44,7 @@ class User(AbstractUser):
     account_num = models.CharField(max_length=100)
     date = models.CharField(max_length=50)
     badge = models.ManyToManyField(Badge, blank=True)
+    fishbread = models.ManyToManyField(Fishbread, blank=True)
     
 
     USERNAME_FIELD = 'email'

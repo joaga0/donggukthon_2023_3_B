@@ -9,7 +9,6 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 @api_view(['GET'])
 def fishbread_info(request):
-
     if request.method == 'GET':
         fishbreads = Fishbread.objects.all()
         serializer = FishbreadSerializer(fishbreads, many=True)
@@ -17,7 +16,7 @@ def fishbread_info(request):
         
 @api_view(['GET'])
 def fishbread_detail(request, id):
-    fishbread = get_object_or_404(Fishbread, fishbread_id=id)
+    fishbread = get_object_or_404(Fishbread, id=id)
 
     if request.method == 'GET':
         serializer = FishbreadSerializer(fishbread)
