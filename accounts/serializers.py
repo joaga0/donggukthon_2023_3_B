@@ -5,13 +5,13 @@ from django.contrib.auth import get_user_model
 class UserBankSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = UserManager
+        model = User
         fields=['holder','bankname','account_num']
 
 class UserDateSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = UserManager
+        model = User
         fields = ['date']
     
     def update(self, instance, validated_data):
@@ -23,22 +23,19 @@ class UserDateSerializer(serializers.ModelSerializer):
 
         return instance
 
-# 마이 페이지
-class UserSeriazlier(serializers.ModelSerializer):
-
-    class Meta:
-        model = UserManager
-        fields= ['email', 'name','holder','bankname','account_num', 'date']
-
 # 유저가 가진 붕어빵 
 class UserFishbreadSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = UserManager
+        model = User
         fields = ['fishbread']
 
+# 마이 페이지
+# class UserSeriazlier(serializers.ModelSerializer):
 
-
+#     class Meta:
+#         model = UserManager
+#         fields= ['email', 'name','holder','bankname','account_num', 'date']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,6 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(
+            name = validated_data['name'],
             email = validated_data['email'],
             password = validated_data['password']
         )
